@@ -1,0 +1,64 @@
+{% extends "layout.html" %}
+
+{% block title %} 
+    Setup 
+{% endblock %} 
+
+{% block main %}
+<div class="project-info">
+    <table>
+        <form action="/setup" method="post">
+            <tr>
+                <td>
+                    <label for="owner">Project Owner:</label>
+                </td>
+                <td>   
+                    <input type="text" name="owner" autocomplete="off">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="location">Location:</label>
+                </td>
+                <td>   
+                    <input type="text" name="location" autocomplete="off">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="startdate">Start Date:</label>
+                </td>
+                <td>  
+                    <input type="date" name="date" autocomplete="off">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="duration">Duration (days):</label>
+                </td>
+                <td>  
+                    <input type="number" name="duration" min="0">
+                </td>
+            </tr>
+        </form>
+    </table>    
+</div>
+
+<div class="budget-info">
+    <table>
+        <form action="/setup" method="post">
+            {% for i in range(1,6) %}
+            <tr>
+                <td>    
+                    <label for="{{ i }}">{{ i }}</label>
+                </td>
+                <td>
+                    <input type="text" name={{ i }}>
+                </td>
+            </tr>
+        {% endfor %}
+        </form>    
+    </table>
+</div>
+
+{% endblock %}

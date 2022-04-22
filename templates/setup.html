@@ -5,7 +5,9 @@
 {% endblock %} 
 
 {% block main %}
-<div class="project-info">
+<div class="error-msg"> {{ error_message }}</div>
+<h1>Project Setup</h1>
+<div class="container-fluid">
     <table>
         <form action="/setup" method="post">
             <tr>
@@ -13,7 +15,7 @@
                     <label for="owner">Project Owner:</label>
                 </td>
                 <td>   
-                    <input type="text" name="owner" autocomplete="off">
+                    <input type="text" class="form-control" name="owner" autocomplete="off">
                 </td>
             </tr>
             <tr>
@@ -21,7 +23,7 @@
                     <label for="location">Location:</label>
                 </td>
                 <td>   
-                    <input type="text" name="location" autocomplete="off">
+                    <input type="text" class="form-control" name="location" autocomplete="off">
                 </td>
             </tr>
             <tr>
@@ -29,7 +31,7 @@
                     <label for="startdate">Start Date:</label>
                 </td>
                 <td>  
-                    <input type="date" name="date" autocomplete="off">
+                    <input type="date" class="form-control" name="date" autocomplete="off">
                 </td>
             </tr>
             <tr>
@@ -37,28 +39,42 @@
                     <label for="duration">Duration (days):</label>
                 </td>
                 <td>  
-                    <input type="number" name="duration" min="0">
+                    <input type="number" class="form-control" name="duration" min="0">
                 </td>
             </tr>
-        </form>
     </table>    
 </div>
 
 <div class="budget-info">
-    <table>
-        <form action="/setup" method="post">
-            {% for i in range(1,6) %}
+        <table>
             <tr>
-                <td>    
-                    <label for="{{ i }}">{{ i }}</label>
+                <td>Letter</td>
+                <td>Description</td>
+                <td>Budget Amount</td>
+            </tr>
+            {% for i in range(5) %}
+            <tr>
+                <td>
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" size="2" maxlength="1" name="letter {{ i }}">
+                    </div>
                 </td>
                 <td>
-                    <input type="text" name={{ i }}>
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" name="description {{ i }}">
+                    </div>
+                </td>
+                <td>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">$</span>
+                        <input type="number" class="form-control" name="budget {{ i }}" aria-label="Dollar amount (with dot and two decimal places)">
+                      </div>
                 </td>
             </tr>
         {% endfor %}
-        </form>    
     </table>
+    <input type="submit" class="btn btn-dark">
+        </form>    
 </div>
 
 {% endblock %}

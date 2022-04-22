@@ -7,3 +7,44 @@
 {
     
 }
+
+.budget-info
+{
+    text-align: center;
+    margin-top: 10px;
+}
+
+.budget-info-cell
+{
+    text-align: center;
+}
+
+.charts
+{
+    margin: auto;
+}
+
+.confirmation-msg
+{
+    text-align: center;
+    margin: auto;
+}
+
+.error-msg
+{
+    text-align: center;
+    margin: auto;
+    color: red;
+}
+
+h1
+{
+    margin: auto;
+    text-align: center;
+}
+
+table, td
+{
+    margin: auto;
+}
+

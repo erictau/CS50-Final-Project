@@ -5,5 +5,49 @@
 {% endblock %} 
 
 {% block main %}
-    Hello!!!!!
+<div class="confirmation-msg"> {{ confirmation_message }}</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+<div class="charts">
+    <canvas id="myChart" name="myChart" style="width:100%;max-width:1000px"></canvas>
+</div>
+<script>
+    // Utilizing Chart.js to present data.
+    var xValues = [];
+    var yValues = [];
+    var barColors = [];
+
+    '{% for x in xVals %}'
+        xValues.push('{{ x }}');
+    '{% endfor %}'
+
+    '{% for y in yVals %}'
+        yValues.push('{{ y }}');
+    '{% endfor %}'
+    
+    '{% for color in colors %}'
+        barColors.push('{{ color }}');
+    '{% endfor %}'
+    
+    console.log(xValues);
+    console.log(yValues);
+    console.log(barColors);
+    
+    new Chart("myChart", {
+      type: "pie",
+      data: {
+        labels: xValues,
+        datasets: [{
+          backgroundColor: barColors,
+          data: yValues
+        }]
+      },
+      options: {
+        title: {
+          display: true,
+          text: "Spent Budget"
+        }
+      }
+    });
+</script>
+    
 {% endblock %}

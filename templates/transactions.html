@@ -5,5 +5,89 @@
 {% endblock %} 
 
 {% block main %}
-    Transactions!!!!!
+<h1>Transactions</h1>
+
+<section id="transactionAdd">
+    <h3>Add Transaction</h3>
+    <table>
+        <form action="/transactions" method="post">
+            <tr>
+                <td>
+                    <div class="input-group mb-3">
+                        <label class="form-label" for="letter">Letter:</label>
+                        <input type="text" class="form-control" id="letter" name="letter" size="3" maxlength="1">
+                    </div>
+                </td>
+                <td>
+                    <div class="input-group mb-3">
+                        <label class="form-label" for="amount">Amount:</label>
+                        <span class="input-group-text">$</span>
+                        <input type="number" class="form-control" id="amount" name="amount" size="5">
+                    </div>
+                </td>
+                <td>
+                    <div class="input-group mb-3">
+                        <label class="form-label" for="notes">Notes:</label>
+                        <input type="text" class="form-control" id="notes" name="notes">
+                    </div>
+                </td>
+                <td>
+                    <input class="btn btn-dark" type="submit" style="margin-bottom: 16px"> 
+                </td>
+            </tr>
+        </form>
+
+    </table>
+
+</section>
+
+<section id="transactionHistory">
+    <h3>Transaction History</h3>
+    <table>
+        <tr>
+            <td>
+                No.
+            </td>
+            <td>
+                Date
+            </td>
+            <td>
+                Transaction Type
+            </td>
+            <td>
+                Letter
+            </td>
+            <td>
+                Amount
+            </td>
+            <td>
+                Notes
+            </td>
+        </tr>
+        {% for transaction in transactions %}
+        <tr>
+            <td>
+                {{ transaction["trans_id"] }}
+            </td>
+            <td>
+                {{ transaction["timestamp"] }}
+            </td>
+            <td>
+                {{ transaction["trans_type"] }}
+            </td>
+            <td>
+                {{ transaction["letter"]}}
+            </td>
+            <td>
+                ${{ transaction["amount"] }}
+            </td>
+            <td>
+                {{ transaction["notes"] }}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</section>
+        
+
 {% endblock %}

@@ -88,9 +88,35 @@ def setup():
 def transactions():
     """Presents a record of all transactions."""
     if request.method == "POST":
+
+        # Receive form inputs
+        letter = request.form.get("letter").upper()
+        amount = request.form.get("amount")
+        notes = request.form.get("notes")
+
+        # Validate inputs
+        budget_letters = db.execute("SELECT letters FROM budgets")
+        letters = []
+
+        for i in budget_letters:
+            letters.append(i["letters"])
+
+        if not letter in letters:
+            return apology("Budget letter is unavailable.")
         
+        try: 
+            float(amount)
+        except:
+            return apology("Invalid amount")
+
+        new_budget = calc_budget(letter, amount)
+        if new_budget < 0:
+            return apology("Insufficient balance.")
+
+        db.execute("INSERT INTO transactions (trans_type, amount, letter, notes) VALUES ('Deduct', ?, ?, ?)", (new_budget * -1), letter, notes)
+
         return render_template("transactions.html")
 
     if request.method == "GET":
-        
-        return render_template("transactions.html")
+        transactions = db.execute("SELECT * FROM transactions ORDER BY trans_id")
+        return render_template("transactions.html", transactions = transactions)

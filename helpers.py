@@ -4,7 +4,9 @@ import urllib.parse
 
 from flask import redirect, render_template, request, session
 from functools import wraps
+from cs50 import SQL
 
+db = SQL("sqlite:///budget.db")
 
 def apology(message, code=400):
     """Render message as an apology to user."""
@@ -24,3 +26,10 @@ def apology(message, code=400):
 def usd(value):
     """Format value as USD."""
     return f"${value:,.2f}"
+
+
+def calc_budget(letter, transaction_bal):
+    """Calculates the remaining budget of a letter"""
+    orig_bal = db.execute("SELECT amount FROM budgets WHERE letters = ?", letter)[0]["amount"]
+    new_bal = float(orig_bal) - float(transaction_bal)
+    return new_bal

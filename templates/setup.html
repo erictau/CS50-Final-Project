@@ -52,6 +52,7 @@
                 <td>Description</td>
                 <td>Budget Amount</td>
             </tr>
+            <!-- Hard coded the range of 5. Matches the setup route in app.py. Changes to this value must be made in both places. -->
             {% for i in range(5) %}
             <tr>
                 <td>
@@ -68,12 +69,16 @@
                     <div class="input-group mb-3">
                         <span class="input-group-text">$</span>
                         <input type="number" class="form-control" name="budget {{ i }}" aria-label="Dollar amount (with dot and two decimal places)">
-                      </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="input-group mb-3">
+                        <input type="submit" class="btn btn-dark">
+                    </div>
                 </td>
             </tr>
         {% endfor %}
     </table>
-    <input type="submit" class="btn btn-dark">
         </form>    
 </div>
 

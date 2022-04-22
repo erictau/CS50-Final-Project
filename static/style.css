@@ -1,20 +1,10 @@
-.bg-dark
-{
-    background-color:greenyellow, !important;
-}
-
-.project-info
-{
-    
-}
-
-.budget-info
+.budget-info, .transaction-info
 {
     text-align: center;
     margin-top: 10px;
 }
 
-.budget-info-cell
+.budget-info-cell, .transaction-info-cell
 {
     text-align: center;
 }
@@ -37,14 +27,43 @@
     color: red;
 }
 
-h1
+.form-label
+{
+    margin-right: 6px;
+    margin-top: 6px;
+}
+
+.form-control
+{
+
+}
+
+body
+{
+    background-color:rgb(242, 242, 233);
+}
+
+h1, h2, h3, h4, h5, h6
 {
     margin: auto;
+    margin-top: 10px;
     text-align: center;
 }
+
+
 
 table, td
 {
     margin: auto;
+    padding: 10px;
 }
 
+#transactionAdd
+{
+    border: solid, 1px;
+}
+
+#transactionHistory
+{
+    border: solid, 1px;
+}

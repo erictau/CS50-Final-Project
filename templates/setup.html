@@ -5,7 +5,7 @@
 {% endblock %} 
 
 {% block main %}
-<div class="error-msg"> {{ error_message }}</div>
+<div class="error-msg"> {{ message }}</div>
 <h1>Project Setup</h1>
 <div class="container-fluid">
     <table>
@@ -71,14 +71,12 @@
                         <input type="number" class="form-control" name="budget {{ i }}" aria-label="Dollar amount (with dot and two decimal places)">
                     </div>
                 </td>
-                <td>
-                    <div class="input-group mb-3">
-                        <input type="submit" class="btn btn-dark">
-                    </div>
-                </td>
             </tr>
-        {% endfor %}
-    </table>
+            {% endfor %}
+        </table>
+        <div class="input-group mb-3 container-fluid">
+            <input type="submit" class="btn btn-dark" style="margin:auto">
+        </div>
         </form>    
 </div>
 

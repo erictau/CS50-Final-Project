@@ -33,3 +33,10 @@ def calc_budget(letter, transaction_bal):
     orig_bal = db.execute("SELECT amount FROM budgets WHERE letters = ?", letter)[0]["amount"]
     new_bal = float(orig_bal) - float(transaction_bal)
     return new_bal
+
+def is_setup():
+    """Checks if the project has been setup yet."""
+    if len(db.execute("SELECT * FROM info")):
+        return True
+    else:
+        return False

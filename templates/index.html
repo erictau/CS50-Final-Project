@@ -5,15 +5,16 @@
 {% endblock %} 
 
 {% block main %}
-<div class="confirmation-msg"> {{ confirmation_message }}</div>
+<div class="confirmation-msg"> {{ message }}</div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
 <div class="charts">
-    <canvas id="myChart" name="myChart" style="width:100%;max-width:1000px"></canvas>
+    <canvas id="myChart" name="myChart" style="width:100%;max-width:700px"></canvas>
 </div>
 <script>
     // Utilizing Chart.js to present data.
     var xValues = [];
     var yValues = [];
+    var yOriginalValues = [];
     var barColors = [];
 
     '{% for x in xVals %}'
@@ -23,6 +24,10 @@
     '{% for y in yVals %}'
         yValues.push('{{ y }}');
     '{% endfor %}'
+
+    '{% for yOrig in yOriginalValues %}'
+        yOriginalValues.push('{{ yOrig }}');
+    '{% endfor %}'
     
     '{% for color in colors %}'
         barColors.push('{{ color }}');
@@ -30,22 +35,50 @@
     
     console.log(xValues);
     console.log(yValues);
+    console.log(yOriginalValues);
     console.log(barColors);
     
-    new Chart("myChart", {
-      type: "pie",
-      data: {
-        labels: xValues,
-        datasets: [{
-          backgroundColor: barColors,
+    var data = {
+      labels: xValues,
+      datasets: [
+        {
+          label: "Original",
+          backgroundColor: "blue",
+          data: yOriginalValues
+        },
+        {
+          label: "Remaining",
+          backgroundColor: "grey",
           data: yValues
-        }]
-      },
-      options: {
-        title: {
-          display: true,
-          text: "Spent Budget"
         }
+      ]
+    }
+
+    new Chart("myChart", {
+      type: "bar",
+      data: data,
+      options: 
+      {
+        title: 
+        {
+          display: true,
+          text: "Remaining Budget"
+        },
+        scales: 
+        {
+          xAxes: 
+          [{
+            barPercentage: 0.7,
+            categoryPercentage: 0.5
+          }],
+          yAxes: 
+          [{
+            ticks: 
+            {
+              min: 0
+            }
+          }]
+        },
       }
     });
 </script>

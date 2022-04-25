@@ -7,86 +7,89 @@
 {% block main %}
 <h1>Transactions</h1>
 
-<section id="transactionAdd">
+<section class="transactionAdd">
     <h3>Add Transaction</h3>
-    <table>
-        <form action="/transactions" method="post">
-            <tr>
-                <td>
+    <form action="/transactions" method="post">
+        <table>
+            <tr style="padding-bottom: 0">
+                <td style="padding-bottom: 0">
                     <div class="input-group mb-3">
                         <label class="form-label" for="letter">Letter:</label>
                         <input type="text" class="form-control" id="letter" name="letter" size="3" maxlength="1">
                     </div>
                 </td>
-                <td>
+                <td style="padding-bottom: 0">
                     <div class="input-group mb-3">
                         <label class="form-label" for="amount">Amount:</label>
                         <span class="input-group-text">$</span>
                         <input type="number" class="form-control" id="amount" name="amount" size="5">
                     </div>
                 </td>
-                <td>
-                    <div class="input-group mb-3">
-                        <label class="form-label" for="notes">Notes:</label>
-                        <input type="text" class="form-control" id="notes" name="notes">
-                    </div>
-                </td>
-                <td>
-                    <input class="btn btn-dark" type="submit" style="margin-bottom: 16px"> 
+            </tr>
+            <tr>
+                <td colspan="2" style="padding-top: 0; padding-bottom: 0">
+                    <p>Notes: <textarea class="textarea form-control" id="notes" name="notes"></textarea></p>
                 </td>
             </tr>
-        </form>
-
-    </table>
-
+        </table>
+        <div class="input-group mb-3 container-fluid">
+            <input type="submit" class="btn btn-dark" style="margin:auto"> 
+        </div>
+    </form>
 </section>
 
 <section id="transactionHistory">
     <h3>Transaction History</h3>
-    <table>
-        <tr>
-            <td>
-                No.
-            </td>
-            <td>
-                Date
-            </td>
-            <td>
-                Transaction Type
-            </td>
-            <td>
-                Letter
-            </td>
-            <td>
-                Amount
-            </td>
-            <td>
-                Notes
-            </td>
-        </tr>
-        {% for transaction in transactions %}
-        <tr>
-            <td>
-                {{ transaction["trans_id"] }}
-            </td>
-            <td>
-                {{ transaction["date(timestamp)"] }}
-            </td>
-            <td>
-                {{ transaction["trans_type"] }}
-            </td>
-            <td>
-                {{ transaction["letter"]}}
-            </td>
-            <td>
-                ${{ transaction["amount"] }}
-            </td>
-            <td>
-                {{ transaction["notes"] }}
-            </td>
-        </tr>
-        {% endfor %}
-    </table>
+    <div>
+        <table class="table table-striped table-hover table-cards">
+            <thead class="thead-cards">
+                <tr class="tr-cards">
+                    <th scope="col" class="th-cards" style="width:5%">
+                        No.
+                    </th>
+                    <th scope="col" class="th-cards" style="width:10%">
+                        Date
+                    </th>
+                    <th scope="col" class="th-cards" style="width:10%">
+                        Transaction
+                    </th>
+                    <th scope="col" class="th-cards" style="width:5%">
+                        Letter
+                    </th>
+                    <th scope="col" class="th-cards" style="width:15%">
+                        Amount
+                    </th>
+                    <th scope="col" class="th-cards">
+                        Notes
+                    </th>
+                </tr>
+            </thead>
+            <tbody class="tbody-cards">
+                {% for transaction in transactions %}
+                <tr class="tr-cards">
+                    <td class="td-cards" style="text-align:center">
+                        {{ transaction["trans_id"] }}
+                    </td>
+                    <td class="td-cards">
+                        {{ transaction["date(timestamp)"] }}
+                    </td>
+                    <td class="td-cards"> 
+                        {{ transaction["trans_type"] }}
+                    </td>
+                    <td class="td-cards" style="text-align:center">
+                        {{ transaction["letter"]}}
+                    </td>
+                    <td class="td-cards">
+                        ${{ transaction["amount"] }}
+                    </td>
+                    <td class="td-cards" style="text-align:left">
+                        {{ transaction["notes"] }}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 </section>
         
 

@@ -35,13 +35,19 @@ def index():
         budgets = db.execute("SELECT letters, amount FROM budgets")
         x_vals = []
         y_vals = []
+        y_orig_values = []
 
         for budget in budgets:
             x_vals.append(budget["letters"])
             y_vals.append(budget["amount"])
         
+        orig_budgets = db.execute("SELECT letters, amount FROM original_budget")
+
+        for orig_budget in orig_budgets:
+            y_orig_values.append(orig_budget["amount"])
+
         colors = ["#FF6666", "#FFB266", "#009999" , "#66B2FF", "#6666FF"]
-        return render_template("index.html", xVals = x_vals, yVals = y_vals, colors = colors)
+        return render_template("index.html", xVals = x_vals, yVals = y_vals, yOriginalValues = y_orig_values, colors = colors)
 
 
 @app.route("/setup", methods=["GET", "POST"])
@@ -72,17 +78,17 @@ def setup():
                 budget_dict.append({"letter": letter, "description": description, "budget": budget})
         
         # Update database with the inputs
-        db.execute("INSERT INTO info (owner_name, location, start_date, project_duration, original_budget) VALUES (?, ?, ?, ?)", project_owner, location, date, duration)
+        db.execute("INSERT INTO info (owner_name, location, start_date, project_duration) VALUES (?, ?, ?, ?)", project_owner, location, date, duration)
         
         for row in budget_dict:
             db.execute("INSERT INTO budgets (letters, description, amount) VALUES (?, ?, ?)", row["letter"], row["description"], row["budget"])
-            db.execute("INSERT INTO original_budgets (letters, description, amount) VALUES (?, ?, ?)", row["letter"], row["description"], row["budget"])
+            db.execute("INSERT INTO original_budget (letters, description, amount) VALUES (?, ?, ?)", row["letter"], row["description"], row["budget"])
 
-        return render_template("index.html", confirmation_message = "Project setup is successful.")
+        return render_template("index.html", message = "Project setup is successful.")
 
     if request.method == "GET":
         if is_setup():
-            return render_template("index.html", confirmation_message = "Project is already set up.")
+            return render_template("index.html", message = "Project is already set up.")
         else:
             return render_template("setup.html")
 
@@ -117,6 +123,7 @@ def transactions():
 
         # Update databases and present the latest data.
         db.execute("INSERT INTO transactions (trans_type, amount, letter, notes) VALUES ('Deduct', ?, ?, ?)", (amount * -1), letter, notes)
+        db.execute("UPDATE budgets SET amount = ? WHERE letters = ?", updated_budget, letter)
         return redirect("/transactions")
 
     if request.method == "GET":

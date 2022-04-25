@@ -43,6 +43,15 @@
     line-height: 20px;
 }
 
+aside
+{
+    width: 30%;
+    max-width: 300px;
+    float: right;
+    background-color: lightgray;
+    padding: 15px;
+}
+
 body
 {
     background-color:rgb(242, 242, 233);

@@ -132,3 +132,7 @@ def transactions():
             return render_template("setup.html", message = "Please set up project first.")
         transactions = db.execute("SELECT *, date(timestamp) FROM transactions ORDER BY trans_id")
         return render_template("transactions.html", transactions = transactions)
+
+@app.route("/about")
+def about():
+    return render_template("about.html")

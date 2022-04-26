@@ -38,6 +38,7 @@
     </form>
 </section>
 
+{% if transactions %}
 <section id="transactionHistory">
     <h3>Transaction History</h3>
     <div class="container-fluid">
@@ -80,7 +81,7 @@
                         {{ transaction["letter"]}}
                     </td>
                     <td class="td-cards">
-                        ${{ transaction["amount"] }}
+                        {{ transaction["amount"] | usd}}
                     </td>
                     <td class="td-cards" style="text-align:left">
                         {{ transaction["notes"] }}
@@ -91,6 +92,7 @@
         </table>
     </div>
 </section>
+{% endif %}
         
 
 {% endblock %}

@@ -20,12 +20,17 @@ app.jinja_env.filters["usd"] = usd
 # Configure CS50 Library to use SQLite database
 db = SQL("sqlite:///budget.db")
 
+
 # Routes
 @app.route("/", methods=["GET", "POST"])
 def index():
     """Homepage. Displays project info and financial dashboard."""
 
     if request.method == "POST":
+        print(request.form.get("clearProject"))
+        if request.form.get("clearProject"):
+            clear_project()
+
         return render_template("index.html")
 
     if request.method == "GET":
@@ -51,12 +56,6 @@ def index():
         colors = ["#FF6666", "#FFB266", "#009999", "#66B2FF", "#6666FF"]
 
         # Setup for budget table variables
-        #letter - budgets
-        #description - budgets
-        #original amount - orig_budgets
-        #amount spent - orig_budgets - budgets
-        #amount remaining - budgets
-
         for i in range(len(budgets)):
             original_amount = float(orig_budgets[i]["amount"])
             amount_spent = original_amount - float(budgets[i]["amount"]) 
@@ -108,6 +107,7 @@ def setup():
         else:
             return render_template("setup.html")
 
+
 @app.route("/transactions", methods=["GET", "POST"])
 def transactions():
     """Presents a record of all transactions."""
@@ -148,6 +148,7 @@ def transactions():
             return render_template("setup.html", message = "Please set up project first.")
         transactions = db.execute("SELECT *, date(timestamp) FROM transactions ORDER BY trans_id")
         return render_template("transactions.html", transactions = transactions)
+
 
 @app.route("/about")
 def about():

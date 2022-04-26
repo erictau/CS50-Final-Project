@@ -40,3 +40,12 @@ def is_setup():
         return True
     else:
         return False
+
+def clear_project():
+    """Clears databases and resets the project."""
+    db.execute("DELETE FROM info")
+    db.execute("DELETE FROM budgets")
+    db.execute("DELETE FROM original_budget")
+    db.execute("DELETE FROM transactions")
+    print("Project Cleared")
+    

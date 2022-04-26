@@ -7,11 +7,46 @@
 {% block main %}
 <div class="confirmation-msg"> {{ message }}</div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
-<div class="charts">
-    <canvas id="myChart" name="myChart" style="width:100%;max-width:700px"></canvas>
+<div class="container-fluid charts">
+  <div class="text-center lead pt-3 pb-1">
+    <strong>Remaining Budget</strong>
+  </div> 
+    <canvas id="myChart" name="myChart" style="width:100%; max-width:700px; margin:auto"></canvas>
 </div>
+
+<!-- Budget Table -->
+<div class="container-fluid">
+  <div class="text-center lead pt-3 pb-1">
+    <strong>Budget Table</strong>
+  </div>
+  <div class="container m-auto p-1 table-responsive-md">
+    <table class="table table-striped table-hover">
+      <thead>
+        <tr>
+          <th>Letter</th>
+          <th>Description</th>
+          <th>Original Amount</th>
+          <th>Amount Spent</th>
+          <th>Amount Remaining</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in budgets %}
+        <tr>
+          <td> {{ row['letters'] }}  </td>
+          <td> {{ row['description'] }} </td>
+          <td> {{ row['original_amount'] | usd }} </td>
+          <td> {{ row['amount_spent'] | usd}} </td>
+          <td> {{ row['amount'] | usd}} </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ChartJS configuration script-->
 <script>
-    // Utilizing Chart.js to present data.
     var xValues = [];
     var yValues = [];
     var yOriginalValues = [];
@@ -59,11 +94,6 @@
       data: data,
       options: 
       {
-        title: 
-        {
-          display: true,
-          text: "Remaining Budget"
-        },
         scales: 
         {
           xAxes: 

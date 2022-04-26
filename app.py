@@ -32,7 +32,9 @@ def index():
         # Check if the project has already been setup. Redirects to setup page. 
         if not is_setup():
             return render_template("setup.html", message = "Please set up project first.")
-        budgets = db.execute("SELECT letters, amount FROM budgets")
+
+        # Setup for chart variables
+        budgets = db.execute("SELECT letters, amount, description FROM budgets")
         x_vals = []
         y_vals = []
         y_orig_values = []
@@ -46,8 +48,22 @@ def index():
         for orig_budget in orig_budgets:
             y_orig_values.append(orig_budget["amount"])
 
-        colors = ["#FF6666", "#FFB266", "#009999" , "#66B2FF", "#6666FF"]
-        return render_template("index.html", xVals = x_vals, yVals = y_vals, yOriginalValues = y_orig_values, colors = colors)
+        colors = ["#FF6666", "#FFB266", "#009999", "#66B2FF", "#6666FF"]
+
+        # Setup for budget table variables
+        #letter - budgets
+        #description - budgets
+        #original amount - orig_budgets
+        #amount spent - orig_budgets - budgets
+        #amount remaining - budgets
+
+        for i in range(len(budgets)):
+            original_amount = float(orig_budgets[i]["amount"])
+            amount_spent = original_amount - float(budgets[i]["amount"]) 
+            budgets[i]['original_amount'] = original_amount
+            budgets[i]['amount_spent'] = amount_spent
+        
+        return render_template("index.html", budgets = budgets, xVals = x_vals, yVals = y_vals, yOriginalValues = y_orig_values, colors = colors)
 
 
 @app.route("/setup", methods=["GET", "POST"])

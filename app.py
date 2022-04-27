@@ -99,11 +99,11 @@ def setup():
             db.execute("INSERT INTO budgets (letters, description, amount) VALUES (?, ?, ?)", row["letter"], row["description"], row["budget"])
             db.execute("INSERT INTO original_budget (letters, description, amount) VALUES (?, ?, ?)", row["letter"], row["description"], row["budget"])
 
-        return render_template("index.html", message = "Project setup is successful.")
+        return redirect('/')
 
     if request.method == "GET":
         if is_setup():
-            return render_template("index.html", message = "Project is already set up.")
+            return redirect('/')
         else:
             return render_template("setup.html")
 

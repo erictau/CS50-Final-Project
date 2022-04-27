@@ -7,14 +7,17 @@
 {% block main %}
 <div class="confirmation-msg"> {{ message }}</div>
 
-<!-- Clear Project Button-->
+<!-- Setup and Clear Project Buttons-->
 <div class="container mt-3">
   <form action="/" method="post">
-    <div class="input-group mb-3 container-fluid">
+    <div class="input-group mb-3 container-fluid col">
+      <a href="/setup" class="btn btn-primary m-auto">Setup Project</a>
+    </div>  
+    <div class="input-group mb-3 container-fluid col">
       <button type="button" class="btn btn-dark m-auto" data-bs-toggle="modal" data-bs-target="#clearProjectModal">
         Clear Project
       </button>    
-    </div>  
+    </div>
   </form>
 </div>
 

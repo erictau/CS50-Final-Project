@@ -6,7 +6,19 @@
 
 {% block main %}
 <div class="confirmation-msg"> {{ message }}</div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+
+<!-- Clear Project Button-->
+<div class="container mt-3">
+  <form action="/" method="post">
+    <div class="input-group mb-3 container-fluid">
+      <button type="button" class="btn btn-dark m-auto" data-bs-toggle="modal" data-bs-target="#clearProjectModal">
+        Clear Project
+      </button>    
+    </div>  
+  </form>
+</div>
+
+<!-- Chart Canvas-->
 <div class="container-fluid charts">
   <div class="text-center lead pt-3 pb-1">
     <h2>Remaining Budget</h2>
@@ -14,14 +26,6 @@
     <canvas id="myChart" name="myChart" style="width:100%; max-width:700px; margin:auto"></canvas>
 </div>
 
-<!-- Clear Project Button-->
-<div class="container">
-  <form action="/" method="post">
-    <div class="input-group mb-3 container-fluid">
-      <button type="submit" class="btn btn-dark" style="margin:auto" value="clear" name="clearProject">Clear Project</button>
-    </div>  
-  </form>
-</div>
 
 <!-- Budget Table -->
 <div class="container-fluid">
@@ -54,6 +58,9 @@
   </div>
 </div>
 
+
+<!-- ChartJS CDN Link -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
 <!-- ChartJS configuration script-->
 <script>
     var xValues = [];
@@ -121,5 +128,27 @@
       }
     });
 </script>
-    
+
+<!-- Modal for clearing project. -->
+
+<!-- Modal -->
+<div class="modal fade" id="clearProjectModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="clearProjectModalLabel">Clear Project</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to clear the project? Data will be erased permanently.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <form action="/" method="post">
+          <button type="submit" class="btn btn-dark" style="margin:auto" value="clear" name="clearProject">Clear Project</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}

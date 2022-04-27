@@ -27,12 +27,16 @@ def index():
     """Homepage. Displays project info and financial dashboard."""
 
     if request.method == "POST":
-        print(request.form.get("clearProject"))
-        if request.form.get("clearProject"):
+        if request.form.get("clearProject") == "clear":
             clear_project()
+            return render_template("index.html", message="Project has been cleared.")
 
-        return render_template("index.html")
-
+        if request.form.get("setupProject") == "setup":
+            if is_setup():
+                return redirect("/")
+            else:
+                return redirect("/setup")
+        
     if request.method == "GET":
         # Check if the project has already been setup. Redirects to setup page. 
         if not is_setup():

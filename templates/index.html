@@ -11,7 +11,7 @@
 <div class="container mt-3">
   <form action="/" method="post">
     <div class="input-group mb-3 container-fluid col">
-      <a href="/setup" class="btn btn-primary m-auto">Setup Project</a>
+      <button type="button" class="btn btn-primary m-auto" data-bs-toggle="modal" data-bs-target="#setupProjectModal">Setup Project</button>
     </div>  
     <div class="input-group mb-3 container-fluid col">
       <button type="button" class="btn btn-dark m-auto" data-bs-toggle="modal" data-bs-target="#clearProjectModal">
@@ -132,9 +132,30 @@
     });
 </script>
 
-<!-- Modal for clearing project. -->
+<!-- Modals -->
 
-<!-- Modal -->
+<!-- Setup Project Modal -->
+<div class="modal fade" id="setupProjectModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="setupProjectModalLabel">Setup Project</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        You will be redirected to the setup page if the project is not already setup. If the project is already setup, you must clear the project prior to setting up a new project.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <form action="/" method="post">
+          <button type="submit" class="btn btn-dark" style="margin:auto" value="setup" name="setupProject">Setup Project</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Clear Project Modal -->
 <div class="modal fade" id="clearProjectModal" tabindex="-1">
   <div class="modal-dialog">
     <div class="modal-content">

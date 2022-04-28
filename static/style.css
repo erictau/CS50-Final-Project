@@ -62,9 +62,7 @@ h1, h2, h3, h4, h5, h6
     margin: auto;
     margin-top: 10px;
     text-align: center;
-}
-
-
+} 
 
 table
 {
@@ -80,6 +78,11 @@ td
     word-wrap: break-word;
 }
 
+#budgetTable tr:last-child
+{
+    background-color:lightgray;
+    font-weight: bold;
+}
 #transactionAdd
 {
     border: solid, 1px;

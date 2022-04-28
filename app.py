@@ -29,7 +29,7 @@ def index():
     if request.method == "POST":
         if request.form.get("clearProject") == "clear":
             clear_project()
-            return render_template("index.html", message="Project has been cleared.")
+            return render_template("setup.html", message="Project has been cleared.")
 
         if request.form.get("setupProject") == "setup":
             if is_setup():
@@ -41,6 +41,11 @@ def index():
         # Check if the project has already been setup. Redirects to setup page. 
         if not is_setup():
             return render_template("setup.html", message = "Please set up project first.")
+
+        # Setup for project info
+        project_info = db.execute("SELECT * FROM info")[0]
+        project_info["end_date"] = str(date_after_x_business_days(project_info["start_date"], project_info["project_duration"]))
+        print(project_info)
 
         # Setup for chart variables
         budgets = db.execute("SELECT letters, amount, description FROM budgets")
@@ -60,13 +65,21 @@ def index():
         colors = ["#FF6666", "#FFB266", "#009999", "#66B2FF", "#6666FF"]
 
         # Setup for budget table variables
+        original_total = 0
+        spent_total = 0
+        remaining_total = 0
+
         for i in range(len(budgets)):
             original_amount = float(orig_budgets[i]["amount"])
             amount_spent = original_amount - float(budgets[i]["amount"]) 
             budgets[i]['original_amount'] = original_amount
             budgets[i]['amount_spent'] = amount_spent
+            original_total += original_amount
+            spent_total += amount_spent
+            remaining_total += float(budgets[i]['amount'])
         
-        return render_template("index.html", budgets = budgets, xVals = x_vals, yVals = y_vals, yOriginalValues = y_orig_values, colors = colors)
+        budgets.append({"letters": "", "description": "Total", "amount": remaining_total, "original_amount": original_total, "amount_spent": spent_total})
+        return render_template("index.html", info = project_info, budgets = budgets, xVals = x_vals, yVals = y_vals, yOriginalValues = y_orig_values, colors = colors)
 
 
 @app.route("/setup", methods=["GET", "POST"])
@@ -74,13 +87,14 @@ def setup():
     """Starts a new project. Initializes budgets and project info."""
     if request.method == "POST":
         # Retrieving project information inputs from forms.
+        project_name = request.form.get("name")
         project_owner = request.form.get("owner")
         location = request.form.get("location")
         date = request.form.get("date")
         duration = request.form.get("duration")
 
         # Checks for an incomplete project info input section. 
-        if None in {project_owner, location, date, duration}:
+        if None in {project_name, project_owner, location, date, duration}:
             return render_template("setup.html", message = "Form is not complete. Please try again.")
 
         # Budget section inputs
@@ -97,7 +111,7 @@ def setup():
                 budget_dict.append({"letter": letter, "description": description, "budget": budget})
         
         # Update database with the inputs
-        db.execute("INSERT INTO info (owner_name, location, start_date, project_duration) VALUES (?, ?, ?, ?)", project_owner, location, date, duration)
+        db.execute("INSERT INTO info (project_name, owner_name, location, start_date, project_duration) VALUES (?, ?, ?, ?, ?)", project_name, project_owner, location, date, duration)
         
         for row in budget_dict:
             db.execute("INSERT INTO budgets (letters, description, amount) VALUES (?, ?, ?)", row["letter"], row["description"], row["budget"])

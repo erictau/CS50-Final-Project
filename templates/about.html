@@ -5,23 +5,48 @@
 {% endblock %} 
 
 {% block main %}
-    <div class="container-fluid">
-        <aside>
-            <h4><u>Stack</u></h4>
-            <strong>Front End</strong>
-            <ul>
-                <li>HTML</li>
-                <li>CSS</li>
-                <li>JavaScript</li>
-                <li>Bootstrap</li>
-            </ul>
-            <strong>Back End</strong>
-            <ul>
-                <li>Python</li>
-                <li>Flask</li>
-                <li>SQLite3</li>
-            </ul>
-            
-        </aside>
-    </div>
+<section>
+<div>
+    <aside>
+        <h4><u>Technology Used</u></h4>
+        <strong>Front End</strong>
+        <ul>
+            <li>HTML</li>
+            <li>CSS</li>
+            <li>JavaScript</li>
+            <li>Bootstrap</li>
+            <li>ChartJS</li>
+        </ul>
+        <strong>Back End</strong>
+        <ul>
+            <li>Python</li>
+            <li>Flask</li>
+            <li>SQLite3</li>
+        </ul>
+    </aside>
+</div>
+<div class="container-fluid">
+    <p>
+        <h2>Project Description</h2>
+        This project is a project budget tracking web app that utilizes HTML, CSS, JS, Bootstrap, and ChartJS on the front end, and Python, Flask, and SQLite3 on the back end.
+        This app tracks several budget categories and visualizes the budgets using a bar chart via ChartJS. The user must set the project up initially with task descriptions and
+        dollar amounts. As money is spent out of each budget, the user must add a transaction on the "Transactions". A history of all transactions is found on the "Transactions"
+        page and the budgets shown on the "Home" page are automatically updated for each transaction. 
+    </p>
+
+    <p>
+        <h2>Future Features</h2>
+        <ul>
+            <li>Include ability to edit and delete transactions</li>
+            <li>Include sorting and filtering of transaction history</li>
+            <li>Add or edit the existing budgets</li>
+            <li>Change the number of budgets from 5 to a user-inputted amount</li>
+            <li>Manage multiple projects simultaneously</li>
+            <li>Save, export, and import projects from Excel and CSV formats.</li>
+            <li>Add subletters for each budget group. For example: A - Mechanical Engineering, A.1 - Mechanical Layout, A.2 - Piping Analysis, etc.</li>
+        </ul>
+    </p>
+
+</div>
+</section>
 {% endblock %}

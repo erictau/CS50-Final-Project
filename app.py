@@ -94,7 +94,7 @@ def setup():
         duration = request.form.get("duration")
 
         # Checks for an incomplete project info input section. 
-        if None in {project_name, project_owner, location, date, duration}:
+        if None in {project_name, project_owner, location, date, duration} or "" in {project_name, project_owner, location, date, duration}:
             return render_template("setup.html", message = "Form is not complete. Please try again.")
 
         # Budget section inputs

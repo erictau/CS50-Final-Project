@@ -47,7 +47,7 @@
                     <label for="duration">Duration (days):</label>
                 </td>
                 <td>  
-                    <input type="number" class="form-control" name="duration" min="0">
+                    <input type="number" class="form-control" name="duration" min="0" autocomplete="off">
                 </td>
             </tr>
     </table>    
@@ -65,18 +65,18 @@
             <tr>
                 <td>
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control" size="2" maxlength="1" name="letter {{ i }}">
+                        <input type="text" class="form-control" size="2" maxlength="1" name="letter {{ i }}" autocomplete="off">
                     </div>
                 </td>
                 <td>
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control" name="description {{ i }}">
+                        <input type="text" class="form-control" name="description {{ i }}" autocomplete="off">
                     </div>
                 </td>
                 <td>
                     <div class="input-group mb-3">
                         <span class="input-group-text">$</span>
-                        <input type="number" class="form-control" name="budget {{ i }}" aria-label="Dollar amount (with dot and two decimal places)">
+                        <input type="number" class="form-control" name="budget {{ i }}" autocomplete="off">
                     </div>
                 </td>
             </tr>

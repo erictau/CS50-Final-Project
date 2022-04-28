@@ -2,7 +2,7 @@
 #### Video Demo:
 #### Description:
 ##### Overview
-The Project Budget Tracker is a web application that can be utilized by project managers as a simple budget tracking tool. Many project managers opt for spreadsheet softwares such as Excel or Google Sheets to manage their budgets, create dashboards, and organize their billing processes. This tool is built with the intention of replacing the standard spreadsheet systems to abstract away the logic from the end user. 
+The Project Budget Tracker is a web application that can be utilized by project managers as a simple budget tracking tool. Many project managers opt for spreadsheet softwares such as Excel or Google Sheets to manage their budgets, create dashboards, and organize their billing processes. In the hands of a savvy user, spreadsheets can be powerful for managing budgets. However, for those less familiar with all the nuances of how a budget spreadsheet is set up, the logic built in to spreadsheet cells can easily be broken or incorrect. This web application is built with the intention of replacing the standard spreadsheet systems to abstract away the logic from the end user and provide a seamless experience. 
 
 ##### Benefits Over a Spreadsheet
 Spreadsheets are highly customizable, however the data stored in cells are susceptible to accidental changes. Additionally, the equations built in to spreadsheet cells can become very complex when conditional statements and calculations are copied for entire columns or rows. This app is designed to only allow the user access to certain functions, such as setting up the project, adding a transaction, modifying an existing transaction, etc. Any actions they perform are handled through post requests to the back end, which take in the user input and update the database and browser automatically. All the logic is handled on the server side, so the user does not need to worry about inconsistencies in calculation methods or cell formulas. 
@@ -27,6 +27,7 @@ The Bootstrap Navbar and Modal were utilized in this project. The Navbar was set
 
 
 ##### Description of Each File
+Each project file is listed and described below: 
 
 ###### app.py
 This web application is developed with Flask, so an app.py file is required to configure and run the application. This file contains all the routes and back end logic for the application. 
@@ -46,10 +47,12 @@ A bar graph and budget table are presented below the Project Information section
 The transactions page includes a "Add Transactions" section and a "Transaction History" section. The "Add Transactions" section is a form that posts to "/transactions" which contains 3 separate text inputs. The Letter, Amount, and Notes are user-inputted data, but the transaction number and date are auto-filled by SQLite. Once a transaction is added, the transaction shows up immediately in the "Transaction History" section below where all transactions are sorted by their transaction numbers. A Jinja for loop is used here to create the "Transaction History" table. 
 
 ###### setup.html
-The setup page consists of a form to populate the project data and budget categories. All project information must be populated, but the budget categories do not all need to be filled. There are currently only 5 spots for categories, and this was hard coded in. Future features include user customizability for number of budget categories. The form posts to "/setup", which takes the data, validates the inputs, and updates the appropriate database tables. Once a project is set up, the setup page can no longer be accessed until the project is cleared. 
+The setup page consists of a form to populate the project data and budget categories. All project information must be populated, but the budget categories do not all need to be filled. There are currently only 5 spots for categories, and this was hard coded in. Future features include user customizability for number of budget categories. The form posts to "/setup", which takes the data, validates the inputs, and updates the appropriate database tables. 
+
+When there is no project data in the database, the home page and transaction pages will redirect the user to the setup page to initialize the project. Once a project is set up, the setup page can no longer be accessed until the project is cleared. Attempting to access the setup page will redirect the user back to the homepage. 
 
 ###### apology.html
-This apology page is utilized for input validation. This project uses the same apology page as the finances pset. 
+This apology page is utilized for input validation. Invalid inputs in many of the forms will return an error message displayed on this apology.html. This project uses the same apology page as the finances pset. 
 
 ###### budget.db
 This database is accessed through SQLite3. This database contains 4 tables: "info", "budgets", "transactions", and "original_budgets". Project data is stored here.
